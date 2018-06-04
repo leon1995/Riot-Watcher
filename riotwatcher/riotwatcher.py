@@ -1,6 +1,6 @@
 
 from ._apis import BaseApi, ChampionApiV3, ChampionMasteryApiV3, LeagueApiV3, LolStatusApiV3
-from ._apis import MatchApiV3, SpectatorApiV3, StaticDataApiV3, SummonerApiV3, ThirdPartyCodeApiV3
+from ._apis import MatchApiV3, SpectatorApiV3, StaticDataApiV3, SummonerApiV3, ThirdPartyCodeApiV3, TournamentApiV3
 from .Handlers import JsonifyHandler, ThrowOnErrorHandler, TypeCorrectorHandler
 
 from .Handlers.RateLimit import RateLimitHandler
@@ -134,5 +134,14 @@ class RiotWatcher(object):
         Interface to the Third Party Code Endpoint
 
         :rtype: ThirdPartyCodeApiV3
+        """
+        return self._third_party_code
+
+    @property
+    def tournament(self):
+        """
+        Interface to the Tournament Endpoint
+
+        :rtype: TournamentApiV3
         """
         return self._third_party_code
