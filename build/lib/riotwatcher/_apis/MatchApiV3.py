@@ -105,27 +105,3 @@ class MatchApiV3(NamedEndpoint):
             region,
             '/lol/match/v3/timelines/by-match/{matchId}'.format(matchId=match_id)
         )
-
-    def tournament_match_ids(self, region, tournamentCode):
-        """
-        Fetch match IDs for a given tournament code.
-        """
-        return self._request(
-            self.tournament_match_ids.__name__,
-            region,
-            '/lol/match/v3/by-tournament-code/{tournamentCode}/ids'.format(tournamentCode=tournamentCode)
-        )
-
-    def match_details_by_tournament_and_matchid(self, region, matchId, tournamentCode):
-        """
-        Fetch match details for a given match ID and tournament code.
-        Note that the DTOs returned by this endpoint and the standard match endpoint
-        /lol/match/v3/matches/{matchId} endpoint are the same.
-        However, the standard match endpoint anonymizes summoners data for non-ranked games.
-        The /lol/match/v3/matches/{matchId}/by-tournament-code/{tournamentCode} endpoint never anonymizes summoners data
-        """
-        return self._request(
-            self.match_details_by_tournament_and_matchid.__name__,
-            region,
-            '/lol/match/v3/matches/{matchId}/by-tournament-code/{tournamentCode}'.format(matchId=matchId, tournamentCode=tournamentCode)
-        )
