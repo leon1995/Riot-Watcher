@@ -18,7 +18,7 @@ class NamedEndpoint(object):
 
     def _request(self, method_name, region, url_ext, **kwargs):
         """
-        Sends a request through the BaseApi instance provided, injecting the provided endpoint_name
+        Sends a get request through the BaseApi instance provided, injecting the provided endpoint_name
         into the method call, so the caller doesn't have to.
 
         :param string method_name:  The name of the calling method
@@ -27,3 +27,27 @@ class NamedEndpoint(object):
                                 the .com extension.
         """
         return self._base_api.request(self._endpoint_name, method_name, region, url_ext, **kwargs)
+
+    def _request_post(self, method_name, region, url_ext, body, **kwargs):
+        """
+        Sends a post request through the BaseApi instance provided, injecting the provided endpoint_name
+        into the method call, so the caller doesn't have to.
+
+        :param string method_name:  The name of the calling method
+        :param string region:   The region to execute this request on
+        :param string url_ext:  the URL of the request, after the domain. This means the part after
+                                the .com extension.
+        """
+        return self._base_api.request_post(self._endpoint_name, method_name, region, url_ext, body, **kwargs)
+
+    def _request_put(self, method_name, region, url_ext, **kwargs):
+        """
+        Sends a put request through the BaseApi instance provided, injecting the provided endpoint_name
+        into the method call, so the caller doesn't have to.
+
+        :param string method_name:  The name of the calling method
+        :param string region:   The region to execute this request on
+        :param string url_ext:  the URL of the request, after the domain. This means the part after
+                                the .com extension.
+        """
+        return self._base_api.request_put(self._endpoint_name, method_name, region, url_ext, **kwargs)

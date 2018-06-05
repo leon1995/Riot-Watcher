@@ -24,11 +24,11 @@ class TournamentApiV3(NamedEndpoint):
 		
 		:returns: int provider id
 		"""
-		return self._request(
+		return self._request_post(
 			self.create_provider.__name__,
 			region,
 			'/lol/tournament/v3/providers',
-			ProviderRegistrationParameters={'region':region,'url':url})
+			body={'region':region,'url':url})
 
 	def create_tournament(self, region, provider_id, tournament_name=None):
 		"""
@@ -37,11 +37,11 @@ class TournamentApiV3(NamedEndpoint):
 		:param int provider_id: The provider ID to specify the regional registered provider data to associate this tournament.
 		:returns: int tournament_id
 		"""
-		return self._request(
+		return self._request_post(
 			self.create_tournament.__name__,
 			region,
 			'/lol/tournament/v3/tournaments',
-			TournamentRegistrationParameters={'name':tournament_name,'providerId':provider_id})
+			body={'name':tournament_name,'providerId':provider_id})
 
 	def codes(self,
 				region,
@@ -66,13 +66,11 @@ class TournamentApiV3(NamedEndpoint):
 		:default key-value tournament_code_parameters if not specified by user: ALL, 5, TOURNAMENT_DRAFT, SUMMONERS_RIFT, None, None
 		:returns: List[string] = represents a tournament code
 		"""
-		return self._request(
+		return self._request_post(
 			self.codes.__name__,
-			'/lol/tournament/v3/codes',
 			region,
-			count=count,
-			tournamentId=tournament_id,
-			TournamentCodeParameters=tournament_code_parameters
+			'/lol/tournament/v3/codes?count={count}&tournamentId={tournamentId}'.format(count=count, tournamentId=tournament_id),
+			body=tournament_code_parameters
 		)
 
 	def update_by_id(self, region, tournament_code, tournament_parameters={'allowedParticipants':'','mapType':'','pickType':'','spectatorType':''}):
@@ -85,7 +83,7 @@ class TournamentApiV3(NamedEndpoint):
 									string	allowedParticipants	Comma separated list of summoner Ids
 									string	mapType	            The map type (Legal values: SUMMONERS_RIFT, TWISTED_TREELINE, HOWLING_ABYSS)
 		"""
-		return self._request(
+		return self._request_put(
 			self.update_by_id.__name__,
 			region,
 			'/lol/tournament/v3/codes/{tournamentCode}'.format(tournamentCode=tournament_code),
